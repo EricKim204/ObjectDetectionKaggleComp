@@ -1,0 +1,57 @@
+# Training Configuration File
+
+# Model settings
+model:
+  name: "openai/clip-vit-large-patch14"  # Options: clip-vit-base-patch32, clip-vit-large-patch14
+  
+# Data settings
+data:
+  train_dir: "./data/train"
+  test_dir: "./data/test"
+  img_size: [64, 64]  # [height, width]
+  validation_split: 0.2
+  
+# Training hyperparameters
+training:
+  batch_size: 8
+  epochs: 4
+  learning_rate: 3.0e-6
+  weight_decay: 0.01
+  
+# Learning rate schedule
+scheduler:
+  type: "cosine"  # cosine or linear
+  warmup_epochs: 0
+  min_lr: 1.0e-7
+  
+# Data augmentation
+augmentation:
+  use_randaugment: true
+  randaugment_magnitude: 7
+  randaugment_num_ops: 2
+  
+# Pseudo-labeling
+pseudo_labeling:
+  enabled: true
+  confidence_threshold: 0.9
+  retrain_epochs: 2
+  retrain_lr: 1.5e-6
+  
+# Output settings
+output:
+  save_dir: "./output"
+  save_best_only: true
+  save_frequency: 1  # Save every N epochs
+  
+# Hardware settings
+hardware:
+  device: "cuda"  # cuda or cpu
+  num_workers: 4
+  pin_memory: true
+  mixed_precision: false  # Use automatic mixed precision
+  
+# Logging
+logging:
+  log_interval: 10  # Log every N batches
+  save_predictions: true
+  save_history: true
