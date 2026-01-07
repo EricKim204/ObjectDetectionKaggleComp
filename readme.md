@@ -5,9 +5,10 @@ Fine-tuning Vision Transformers (CLIP) for image classification, achieving **fir
 ## Overview
 
 This project is a refined recreation of the notebook I built when I won my university’s image classification competition - Original Notebook link: https://colab.research.google.com/drive/1SrOHL5HgtcpHeZ43WVgTVEDugFBE1DY4?usp=sharing
-I lost access to this due to my university email account being expired...
 
-A custom classification pipeline using OpenAI’s CLIP (Contrastive Language–Image Pre‑training) model by applying transfer learning and modern training techniques.
+I lost access to the original files and other various scripts due to my university email account being expired...
+
+This is a custom classification training script using OpenAI’s CLIP (Contrastive Language–Image Pre‑training) model by applying transfer learning and modern training techniques.
 
 ### Key Features
 
@@ -15,8 +16,7 @@ A custom classification pipeline using OpenAI’s CLIP (Contrastive Language–I
 - **Data Augmentation**: RandAugment with optimized hyperparameters
 - **Cosine Learning Rate Schedule**: Smooth convergence with warmup
 - **Pseudo-Labeling**: Semi-supervised learning for improved performance
-- **GPU Acceleration**: CUDA-enabled training pipeline
-- **Comprehensive Logging**: Track training metrics and model performance
+- **GPU Acceleration**: CUDA-enabled 
 
 ## Architecture
 
@@ -45,107 +45,6 @@ The model architecture consists of:
 - High-confidence predictions (>0.9) added to training set
 - Epochs: 2
 - Learning Rate: 1.5e-6 (reduced)
-
-## Installation
-
-### Prerequisites
-- Python 3.8+
-- CUDA-capable GPU (recommended)
-- 8GB+ RAM
-
-### Setup
-
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/clip-image-classification.git
-cd clip-image-classification
-
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
-```
-
-## Quick Start
-
-### 1. Prepare Data
-
-Organize data in the following structure:
-
-```
-data/
-├── train/
-│   ├── class1/
-│   │   ├── img1.jpg
-│   │   ├── img2.jpg
-│   │   └── ...
-│   ├── class2/
-│   │   └── ...
-│   └── ...
-└── test/
-    ├── img1.jpg
-    ├── img2.jpg
-    └── ...
-```
-
-### 2. Train the Model
-
-Basic training:
-
-```bash
-python train.py \
-  --train_dir ./data/train \
-  --test_dir ./data/test \
-  --model_name openai/clip-vit-large-patch14 \
-  --img_size 64 64 \
-  --batch_size 8 \
-  --epochs 4 \
-  --lr 3e-6 \
-  --output_dir ./output
-```
-
-With pseudo-labeling:
-
-```bash
-python train.py \
-  --train_dir ./data/train \
-  --test_dir ./data/test \
-  --model_name openai/clip-vit-large-patch14 \
-  --img_size 64 64 \
-  --batch_size 8 \
-  --epochs 4 \
-  --lr 3e-6 \
-  --output_dir ./output \
-  --use_pseudo_labels \
-  --pseudo_threshold 0.9
-```
-
-### 3. Generate Predictions
-
-```bash
-python inference.py \
-  --model_path ./output/best_model \
-  --test_dir ./data/test \
-  --labels class1 class2 class3 ... \
-  --output predictions.csv \
-  --batch_size 8 \
-  --img_size 64 64
-```
-
-## Project Structure
-
-```
-clip-image-classification/
-├── train.py              # Main training script
-├── inference.py          # Prediction generation
-├── data_utils.py         # Data loading and preprocessing
-├── requirements.txt      # Python dependencies
-├── README.md            # This file
-└── notebooks/           # Jupyter notebooks for experimentation
-    └── kaggle_cleaned.ipynb
-```
 
 ## Methodology
 
